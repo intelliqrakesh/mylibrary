@@ -10,15 +10,11 @@ def newMaven()
 
 def newDeploy(jobname,ip,context)
 {
-  deploy adapters: [tomcat9(credentialsId: ${jobtname}, path: '', url: ${ip})], contextPath: ${context}, war: '**/*.war' 
+  sh 'scp /home/ubuntu/.jenkins/workspace/${jobname}/webapp/target/webapp.war ubuntu@${ip}:/var/lib/tomcat9/webapps/${context}.war'
+ 
 }
 
 def runSelenium(jobname)
 {
   sh 'java -jar /home/ubuntu/.jenkins/workspace/${jobname}/testing.jar' 
-}
-
-def newDelivery(jobname,ip,context)
-{
-  deploy adapters: [tomcat9(credentialsId: ${jobname}, path: '', url: ${ip})], contextPath: ${context}, war: '**/*.war' 
 }
